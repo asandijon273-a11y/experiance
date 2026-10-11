@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MYFACE</title>
+<style>
+:root{--bg:#02050a;--p:#07111c;--p2:#0a1725;--line:#12344b;--c:#00d9ff;--b:#177cff;--g:#35ffb0;--r:#ff477e;--y:#ffd166;--t:#eafaff;--mut:#7190a5;--shadow:0 0 30px #00d9ff18}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:Inter,Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--t)}
+body:before{content:"";position:fixed;inset:0;z-index:-2;background:radial-gradient(circle at 20% 10%,#006cff18,transparent 30%),radial-gradient(circle at 90% 80%,#00d9ff10,transparent 35%),linear-gradient(#ffffff03 1px,transparent 1px),linear-gradient(90deg,#ffffff03 1px,transparent 1px);background-size:auto,auto,40px 40px,40px 40px}
+button,input,textarea,select{font:inherit}button{cursor:pointer}
+.app{display:flex;min-height:100vh}.side{width:245px;background:#030a12ee;border-right:1px solid var(--line);padding:18px 12px;position:fixed;inset:0 auto 0 0;z-index:20;backdrop-filter:blur(20px)}
+.logo{padding:10px 12px 20px;font-weight:900;letter-spacing:3px;color:var(--c);font-size:25px;text-shadow:0 0 18px #00d9ff88}.logo small{display:block;font-size:9px;color:#66859a;letter-spacing:2px;margin-top:4px}
+.nav{display:grid;gap:6px}.nav button{border:1px solid transparent;background:transparent;color:#9db6c6;text-align:left;padding:12px 13px;border-radius:11px;transition:.2s}.nav button:hover,.nav button.active{color:white;border-color:#00d9ff40;background:linear-gradient(90deg,#00d9ff12,#177cff10);box-shadow:inset 3px 0 var(--c),0 0 18px #00d9ff0d}.nav i{display:inline-block;width:27px;font-style:normal}.ownerBadge{margin:15px 3px;padding:12px;border:1px solid #ffd16635;background:#ffd16608;border-radius:12px;color:#ffd166;font-size:11px}
+.main{margin-left:245px;width:calc(100% - 245px);min-width:0}.top{height:70px;position:sticky;top:0;z-index:15;background:#030a12d9;border-bottom:1px solid var(--line);backdrop-filter:blur(18px);display:flex;align-items:center;gap:12px;padding:10px 22px}.search{flex:1;max-width:650px}.search input{width:100%;background:#06101a;border:1px solid var(--line);color:white;padding:12px 15px;border-radius:12px;outline:none}.search input:focus{border-color:#00d9ff88;box-shadow:0 0 18px #00d9ff12}.me{margin-left:auto;display:flex;align-items:center;gap:9px}
+.avatar{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,#0b2940,#0a75a5);border:1px solid #00d9ff66;color:white;font-weight:800;overflow:hidden}.avatar img{width:100%;height:100%;object-fit:cover}
+.content{max-width:1250px;margin:auto;padding:25px}.page{display:none;animation:in .25s ease}.page.active{display:block}@keyframes in{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
+.hero{padding:30px;border:1px solid #00d9ff35;border-radius:22px;background:linear-gradient(135deg,#071a28cc,#050b14dd);box-shadow:var(--shadow);position:relative;overflow:hidden}.hero:after{content:"";position:absolute;width:260px;height:260px;border:1px solid #00d9ff20;border-radius:50%;right:-90px;top:-100px;box-shadow:0 0 50px #00d9ff12}.hero h1{margin:0;font-size:clamp(28px,5vw,52px);letter-spacing:-2px}.cyan{color:var(--c)}.muted{color:var(--mut)}.grid{display:grid;gap:15px}.cols2{grid-template-columns:minmax(0,1.6fr) minmax(260px,.8fr)}.cols3{grid-template-columns:repeat(3,1fr)}.card{background:linear-gradient(145deg,#07121ddd,#050b12e8);border:1px solid var(--line);border-radius:17px;padding:17px;box-shadow:var(--shadow);margin-bottom:15px}.card h2,.card h3{margin-top:0}.btn{border:1px solid #00d9ff45;background:#071725;color:#ccefff;padding:9px 13px;border-radius:10px;transition:.18s}.btn:hover{border-color:var(--c);box-shadow:0 0 18px #00d9ff22;transform:translateY(-1px)}.btn.primary{background:linear-gradient(135deg,#006d91,#1266bb);border-color:#00d9ff88;color:#fff}.btn.danger{border-color:#ff477e55;color:#ff91aa}.btn.gold{border-color:#ffd16655;color:#ffd166}.row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.between{justify-content:space-between}.field{width:100%;background:#030a12;border:1px solid var(--line);border-radius:10px;color:white;padding:11px;outline:none}.field:focus{border-color:#00d9ff88}.postText{white-space:pre-wrap;line-height:1.55}.postimg{width:100%;max-height:480px;object-fit:cover;border-radius:12px;margin-top:10px;border:1px solid var(--line)}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.stat{padding:15px;border:1px solid var(--line);border-radius:13px;background:#06101a}.stat b{display:block;font-size:25px;color:var(--c)}.tag{display:inline-block;padding:4px 8px;border-radius:99px;background:#00d9ff10;border:1px solid #00d9ff30;color:#8eeeff;font-size:11px}
+.groupWrap{display:grid;grid-template-columns:290px 1fr;min-height:620px;border:1px solid var(--line);border-radius:17px;overflow:hidden;background:#040b12}.groups{border-right:1px solid var(--line);padding:10px;overflow:auto}.gitem{padding:13px;border-radius:11px;margin-bottom:5px;cursor:pointer;border:1px solid transparent}.gitem:hover,.gitem.sel{background:#00d9ff0d;border-color:#00d9ff30}.chat{display:flex;flex-direction:column;min-width:0}.chatHead{padding:15px;border-bottom:1px solid var(--line)}.messages{flex:1;padding:18px;overflow:auto;max-height:470px}.msg{max-width:75%;padding:10px 13px;background:#091827;border:1px solid #12364c;border-radius:13px;margin:8px 0}.msg.mine{margin-left:auto;border-color:#00d9ff35;background:#063047}.composer{display:flex;gap:8px;padding:12px;border-top:1px solid var(--line)}.composer input{flex:1}
+.modalBg{position:fixed;inset:0;background:#000b;backdrop-filter:blur(8px);display:none;place-items:center;z-index:50;padding:18px}.modalBg.show{display:grid}.modal{width:min(650px,100%);max-height:90vh;overflow:auto;background:#06101a;border:1px solid #00d9ff45;border-radius:18px;padding:20px;box-shadow:0 0 60px #00d9ff18}.modal h2{margin-top:0}.toast{position:fixed;right:20px;bottom:20px;z-index:80;background:#071722;border:1px solid #00d9ff55;border-radius:12px;padding:13px 16px;box-shadow:0 0 25px #00d9ff22;display:none}.toast.show{display:block;animation:in .2s}.progress{height:9px;background:#0a1a27;border-radius:20px;overflow:hidden}.progress i{display:block;height:100%;background:linear-gradient(90deg,var(--c),var(--b));box-shadow:0 0 15px var(--c)}
+table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:10px;border-bottom:1px solid var(--line);font-size:13px}th{color:#75dfff}.adminGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.kpi{padding:17px;border:1px solid var(--line);border-radius:14px;background:#06111b}.kpi strong{font-size:28px;color:var(--c);display:block}.notice{padding:12px;border-left:3px solid var(--c);background:#00d9ff08;border-radius:8px;margin:10px 0}.empty{text-align:center;color:var(--mut);padding:40px}.mobileBtn{display:none}
+@media(max-width:850px){.side{transform:translateX(-100%);transition:.25s}.side.open{transform:none}.main{margin-left:0;width:100%}.mobileBtn{display:block}.cols2,.groupWrap{grid-template-columns:1fr}.groups{max-height:220px;border-right:0;border-bottom:1px solid var(--line)}.cols3,.adminGrid,.stats{grid-template-columns:repeat(2,1fr)}.content{padding:15px}.top{padding:10px 13px}}
+@media(max-width:500px){.cols3,.adminGrid,.stats{grid-template-columns:1fr}.hero{padding:20px}.search{display:none}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="side" id="side">
+  <div class="logo">MYFACE<small>NEON SOCIAL OS</small></div>
+  <div class="nav">
+    <button data-nav="home">⌂ <i>HOME</i></button>
+    <button data-nav="people">◉ <i>PEOPLE</i></button>
+    <button data-nav="groups">▣ <i>GROUPS</i></button>
+    <button data-nav="invites">✉ <i>INVITES</i></button>
+    <button data-nav="stories">◌ <i>STORIES</i></button>
+    <button data-nav="search">⌕ <i>SEARCH</i></button>
+    <button data-nav="leaderboard">♛ <i>LEADERBOARD</i></button>
+    <button data-nav="profile">◎ <i>PROFILE</i></button>
+    <button data-nav="account">⚙ <i>ACCOUNT</i></button>
+    <button data-nav="support">⚠ <i>SECURITY</i></button>
+    <button data-nav="settings">☷ <i>SETTINGS</i></button>
+    <button data-nav="admin" id="adminNav" style="display:none">◆ <i>OWNER CENTER</i></button>
+  </div>
+  <div class="ownerBadge" id="sideUser"></div>
+</aside>
+<main class="main">
+<header class="top">
+  <button class="btn mobileBtn" data-action="toggleSide">☰</button>
+  <div class="search"><input id="globalSearch" placeholder="Search people, groups, posts..."></div>
+  <div class="me"><span id="topName"></span><div class="avatar" id="topAvatar"></div></div>
+</header>
+<div class="content">
+<section class="page" data-page="home"></section>
+<section class="page" data-page="people"></section>
+<section class="page" data-page="groups"></section>
+<section class="page" data-page="invites"></section>
+<section class="page" data-page="stories"></section>
+<section class="page" data-page="search"></section>
+<section class="page" data-page="leaderboard"></section>
+<section class="page" data-page="profile"></section>
+<section class="page" data-page="account"></section>
+<section class="page" data-page="support"></section>
+<section class="page" data-page="settings"></section>
+<section class="page" data-page="admin"></section>
+</div>
+</main>
+</div>
+
+<div class="modalBg" id="modalBg"><div class="modal" id="modal"></div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+"use strict";
+const KEY="myface_neon_v8";
+const OWNER="000000001";
+const PAGES=["home","people","groups","invites","stories","search","leaderboard","profile","account","support","settings","admin"];
+const fresh=()=>({version:8,currentUserId:OWNER,settings:{autoFollow:true,maintenance:false,theme:"neon",language:"uz"},users:{},posts:[],groups:{},invitations:[],voiceInvitations:[],notifications:[],stories:[],tickets:[],reports:[],voiceRooms:{},rate:{}});
+let db=load();
+let currentPage="home", selectedGroup=null;
+
+function uid(){let n;do{n=String(Math.floor(100000000+Math.random()*900000000));}while(n===OWNER||db.users[n]);return n}
+function id(){return Date.now().toString(36)+Math.random().toString(36).slice(2,8)}
+function now(){return Date.now()}
+function esc(x=""){return String(x).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]))}
+function user(id){return db.users[id]}
+function me(){return user(db.currentUserId)}
+function roleName(r){return ["","User","Kichik Admin","Admin","Katta Admin","Moderator","Helper","OWNER"][r]||"User"}
+function avatar(u){return u?.avatar?`<img src="${u.avatar}">`:esc((u?.name||"?").slice(0,2).toUpperCase())}
+function save(){localStorage.setItem(KEY,JSON.stringify(db))}
+function load(){
+ let d=null;try{d=JSON.parse(localStorage.getItem(KEY)||"null")}catch{}
+ if(!d){try{d=JSON.parse(localStorage.getItem("myface_neon_v7")||"null")}catch{}}
+ d=Object.assign(fresh(),d||{});
+ ["users","groups"].forEach(k=>d[k]=d[k]||{});
+ ["posts","invitations","voiceInvitations","notifications","stories","tickets","reports"].forEach(k=>d[k]=Array.isArray(d[k])?d[k]:[]);
+ d.settings=Object.assign(fresh().settings,d.settings||{});
+ if(!d.users[OWNER])d.users[OWNER]={id:OWNER,name:"MYFACE OWNER",role:7,verified:true,banned:false,avatar:"",bio:"System Owner",following:[],followers:[],xp:0,level:1,achievements:["Founder"],createdAt:now()};
+ let o=d.users[OWNER];o.role=7;o.banned=false;o.verified=true;
+ return d;
+}
+function toast(s){let t=document.getElementById("toast");t.textContent=s;t.classList.add("show");clearTimeout(window._toast);window._toast=setTimeout(()=>t.classList.remove("show"),2500)}
+function openModal(html){document.getElementById("modal").innerHTML=html;document.getElementById("modalBg").classList.add("show")}
+function closeModal(){document.getElementById("modalBg").classList.remove("show")}
+function canPost(){if(me().banned){toast("Bu akkaunt cheklangan.");return false}return true}
+function xp(n,reason=""){let u=me();u.xp=Math.max(0,(u.xp||0)+n);u.level=Math.max(1,Math.floor(u.xp/100)+1);save()}
+function notify(uid,text){if(!db.notifications.some(n=>n.uid===uid&&n.text===text&&now()-n.createdAt<5000))db.notifications.unshift({id:id(),uid,text,createdAt:now(),read:false})}
+function rate(key,ms){let t=db.rate[key]||0;if(now()-t<ms)return false;db.rate[key]=now();return true}
+function navigate(p){
+ if(!PAGES.includes(p))p="home";
+ if(p==="admin"&&me().id!==OWNER){toast("Faqat OWNER.");p="home"}
+ currentPage=p;
+ document.querySelectorAll(".page").forEach(x=>x.classList.toggle("active",x.dataset.page===p));
+ document.querySelectorAll("[data-nav]").forEach(x=>x.classList.toggle("active",x.dataset.nav===p));
+ render(p);document.getElementById("side").classList.remove("open");window.scrollTo({top:0,behavior:"smooth"});
+}
+function shell(title,sub,body){return `<div class="hero"><div class="muted">${esc(sub)}</div><h1>${title}</h1></div><br>${body}`}
+function render(p){
+ updateTop();
+ const fn={home:renderHome,people:renderPeople,groups:renderGroups,invites:renderInvites,stories:renderStories,search:renderSearch,leaderboard:renderLeaderboard,profile:renderProfile,account:renderAccount,support:renderSupport,settings:renderSettings,admin:renderAdmin}[p];
+ if(fn)document.querySelector(`[data-page="${p}"]`).innerHTML=fn();
+}
+function updateTop(){
+ let u=me();document.getElementById("topName").textContent=u.name;
+ document.getElementById("topAvatar").innerHTML=avatar(u);
+ document.getElementById("adminNav").style.display=u.id===OWNER?"block":"none";
+ document.getElementById("sideUser").innerHTML=`<b>${esc(u.name)}</b><br><span>${roleName(u.role)} · LVL ${u.level}</span>`;
+}
+function renderHome(){
+ let posts=[...db.posts].sort((a,b)=>b.createdAt-a.createdAt);
+ return shell(`MYFACE <span class="cyan">/</span> HOME`,"NEON SOCIAL NETWORK",`
+ <div class="cols2 grid"><div>
+ <div class="card"><h3>⚡ Create Post</h3><textarea class="field" id="postText" rows="4" placeholder="Nima bo'lyapti?"></textarea><br><br><button class="btn primary" data-action="createPost">POST</button></div>
+ ${posts.length?posts.map(postHTML).join(""):`<div class="card empty">Hali postlar yo'q. Birinchi postni sen yarat! 🚀</div>`}
+ </div><div>
+ <div class="card"><h3>👤 Your status</h3><div class="row"><div class="avatar">${avatar(me())}</div><div><b>${esc(me().name)}</b><br><span class="muted">${roleName(me().role)}</span></div></div><br><div class="progress"><i style="width:${me().xp%100}%"></i></div><p class="muted">LVL ${me().level} · ${me().xp} XP</p></div>
+ <div class="card"><h3>⚡ XP SYSTEM</h3><div class="notice">New follower <b>+5 XP</b></div><div class="notice">Like <b>+1 XP</b></div><div class="notice">Comment <b>+3 XP</b></div></div></div></div>`);
+}
+function postHTML(p){
+ let u=user(p.userId)||user(OWNER), liked=p.likes?.includes(db.currentUserId),dis=p.dislikes?.includes(db.currentUserId);
+ return `<article class="card"><div class="row between"><div class="row"><div class="avatar">${avatar(u)}</div><div><b>${esc(u.name)}</b> ${u.verified?"✓":""}<br><small class="muted">${roleName(u.role)} · ${new Date(p.createdAt).toLocaleString()}</small></div></div>${p.userId===db.currentUserId||me().id===OWNER?`<button class="btn danger" data-action="deletePost" data-id="${p.id}">Delete</button>`:""}</div><br><div class="postText">${esc(p.text)}</div>${(p.images||[]).map(x=>`<img class="postimg" src="${x}">`).join("")}<br><div class="row"><button class="btn" data-action="like" data-id="${p.id}">👍 ${p.likes?.length||0}</button><button class="btn" data-action="dislike" data-id="${p.id}">👎 ${p.dislikes?.length||0}</button><button class="btn" data-action="comment" data-id="${p.id}">💬 ${p.comments?.length||0}</button></div>${(p.comments||[]).slice(-4).map(c=>commentHTML(c)).join("")}</article>`
+}
+function commentHTML(c){
+ let u=user(c.userId)||user(OWNER);
+ return `<div class="notice"><b>${esc(u.name)}</b> <span class="muted">${esc(c.text)}</span><br><small class="muted">${new Date(c.createdAt).toLocaleString()}</small></div>`
+}
+function renderPeople(){
+ let arr=Object.values(db.users).filter(u=>u.id!==me().id);
+ return shell("PEOPLE","DISCOVER USERS",`<div class="grid cols3">${arr.map(u=>`<div class="card"><div class="row"><div class="avatar">${avatar(u)}</div><div><b>${esc(u.name)}</b><br><span class="muted">${roleName(u.role)}</span></div></div><p class="muted">${esc(u.bio||"No bio")}</p><div class="row"><span class="tag">LVL ${u.level}</span><span class="tag">${u.followers.length} followers</span></div><br><button class="btn primary" data-action="follow" data-id="${u.id}">${me().following.includes(u.id)?"Unfollow":"Follow"}</button> <button class="btn" data-action="viewProfile" data-id="${u.id}">Profile</button></div>`).join("")||`<div class="card empty">Bosh.</div>`}</div>`);
+}
+function renderGroups(){
+ let gs=Object.values(db.groups).sort((a,b)=>(b.system===true)-(a.system===true));
+ if(!selectedGroup||!db.groups[selectedGroup])selectedGroup=gs[0]?.id||null;
+ let g=selectedGroup?db.groups[selectedGroup]:null;
+ return shell("GROUPS","TELEGRAM-STYLE GROUP SPACE",`
+ <div class="groupWrap"><aside class="groups"><button class="btn primary" style="width:100%" data-action="newGroup">＋ NEW GROUP</button><br><br>
+ ${gs.map(x=>`<div class="gitem ${x.id===selectedGroup?"sel":""}" data-action="selectGroup" data-id="${x.id}">🛡️ ${esc(x.name)}<br><small class="muted">${x.members.length} members</small></div>`).join("")}</aside>
+ <section class="chat">${g?chatHTML(g):`<div class="empty">Group tanlang.</div>`}</section></div>`);
+}
+function chatHTML(g){
+ let msgs=g.messages||[];
+ return `<div class="chatHead"><div class="row between"><div><h3 style="margin:0">${g.system?"🛡️ ":""}${esc(g.name)}</h3><small class="muted">${g.members.length} members</small></div><div class="row"><button class="btn" data-action="voiceStart" data-id="${g.id}">🎙 Voice</button>${!g.system&&g.creator===me().id?`<button class="btn danger" data-action="deleteGroup" data-id="${g.id}">Delete</button>`:""}</div></div></div>
+ <div class="messages">${msgs.map(m=>{let u=user(m.userId)||user(OWNER);return `<div class="msg ${m.userId===me().id?"mine":""}"><b>${esc(u.name)}</b><br>${esc(m.text)}<br><small class="muted">${new Date(m.createdAt).toLocaleTimeString()}</small></div>`}).join("")||`<div class="empty">Hali xabar yo'q.</div>`}</div>
+ <div class="composer"><input class="field" id="groupMsg" placeholder="Xabar yozing..."><button class="btn primary" data-action="sendGroup" data-id="${g.id}">SEND</button></div>`;
+}
+function renderInvites(){
+ let gi=db.invitations.filter(x=>x.to===me().id&&x.status==="pending"), vi=db.voiceInvitations.filter(x=>x.to===me().id&&x.status==="pending");
+ return shell("INVITES","REQUESTS & NOTIFICATIONS",`<div class="cols2 grid"><div class="card"><h2>Group invites</h2>${gi.map(x=>`<div class="notice"><b>${esc(user(x.from)?.name)}</b> invited you to <b>${esc(db.groups[x.groupId]?.name)}</b><br><br><button class="btn primary" data-action="acceptInvite" data-id="${x.id}">Agree</button> <button class="btn danger" data-action="declineInvite" data-id="${x.id}">Disagree</button></div>`).join("")||`<div class="empty">No pending invites.</div>`}</div><div class="card"><h2>Voice invites</h2>${vi.map(x=>`<div class="notice">🎙 ${esc(user(x.from)?.name)} invited you<br><br><button class="btn primary" data-action="acceptVoice" data-id="${x.id}">Agree</button> <button class="btn danger" data-action="declineVoice" data-id="${x.id}">Disagree</button></div>`).join("")||`<div class="empty">No voice invites.</div>`}</div></div><div class="card"><h2>Notifications</h2>${db.notifications.filter(x=>x.uid===me().id).slice(0,20).map(x=>`<div class="notice">${esc(x.text)} <small class="muted">${new Date(x.createdAt).toLocaleString()}</small></div>`).join("")||`<div class="empty">No notifications.</div>`}</div>`);
+}
+function renderStories(){
+ let valid=db.stories.filter(s=>s.expiresAt>now());
+ db.stories=valid;save();
+ return shell("STORIES","24-HOUR STORIES",`<div class="card"><textarea class="field" id="storyText" rows="3" placeholder="Story text..."></textarea><br><br><button class="btn primary" data-action="createStory">CREATE STORY +5 XP</button></div><div class="grid cols3">${valid.map(s=>`<div class="card"><div class="row"><div class="avatar">${avatar(user(s.userId))}</div><b>${esc(user(s.userId)?.name)}</b></div><br>${esc(s.text)}${s.image?`<img class="postimg" src="${s.image}">`:""}<br><small class="muted">expires ${new Date(s.expiresAt).toLocaleString()}</small></div>`).join("")||`<div class="card empty">No stories.</div>`}</div>`);
+}
+function renderSearch(){
+ return shell("SEARCH","GLOBAL LOCAL INDEX",`<div class="card"><input class="field" id="searchBox" value="${esc(new URLSearchParams(location.hash.split("?")[1]||"").get("q")||"")}" placeholder="Search..."><br><br><button class="btn primary" data-action="doSearch">SEARCH</button></div><div id="searchResults"></div>`);
+}
+function doSearch(q){
+ q=(q||"").toLowerCase().trim();let users=Object.values(db.users).filter(u=>u.name.toLowerCase().includes(q)||u.id.includes(q)),groups=Object.values(db.groups).filter(g=>g.name.toLowerCase().includes(q)),posts=db.posts.filter(p=>p.text.toLowerCase().includes(q));
+ document.querySelector('[data-page="search"]').innerHTML+=`<div class="card"><h2>Results</h2>${users.map(u=>`<div class="notice">👤 ${esc(u.name)} · ${u.id} <button class="btn" data-action="viewProfile" data-id="${u.id}">Open</button></div>`).join("")}${groups.map(g=>`<div class="notice">▣ ${esc(g.name)} <button class="btn" data-action="openGroup" data-id="${g.id}">Open</button></div>`).join("")}${posts.map(p=>`<div class="notice">📝 ${esc(p.text.slice(0,160))}</div>`).join("")||(!users.length&&!groups.length?`<div class="empty">No results.</div>`:"")}</div>`;
+}
+function renderLeaderboard(){
+ let arr=Object.values(db.users).sort((a,b)=>b.xp-a.xp);
+ return shell("LEADERBOARD","XP / LEVEL RANKING",`<div class="card"><table><tr><th>#</th><th>User</th><th>Level</th><th>XP</th><th>Role</th></tr>${arr.map((u,i)=>`<tr><td>${i+1}</td><td><div class="row"><div class="avatar">${avatar(u)}</div>${esc(u.name)}</div></td><td>LVL ${u.level}</td><td>${u.xp}</td><td>${roleName(u.role)}</td></tr>`).join("")}</table></div>`);
+}
+function renderProfile(){
+ let u=me(),next=Math.max(100,u.level*100),percent=Math.min(100,Math.max(0,Math.round((u.xp%100))));
+ let myPosts=db.posts.filter(p=>p.userId===u.id).sort((a,b)=>b.createdAt-a.createdAt);
+ let following=u.id===OWNER?`<div class="notice">🔒 OWNER Following ro‘yxati maxfiy.</div>`:`<div class="card"><h3>👥 Following</h3>${u.following?.length?u.following.map(fid=>{let f=user(fid);return f?`<div class="row between" style="padding:9px 0;border-bottom:1px solid var(--line)"><div class="row"><div class="avatar">${avatar(f)}</div><div><b>${esc(f.name)}</b><br><small class="muted">${roleName(f.role)} · ${f.id}</small></div></div><button class="btn" data-action="viewProfile" data-id="${f.id}">Open</button></div>`:""}).join(""):`<div class="empty">Hech kimga follow bosmagan.</div>`}</div>`;
+ return shell("PROFILE","YOUR HOLOGRAM ID CARD",`<div class="cols2 grid"><div class="card"><div class="row"><div class="avatar" style="width:90px;height:90px">${avatar(u)}</div><div><h2>${esc(u.name)} ${u.verified?"✓":""}</h2><span class="tag">ID ${u.id}</span> <span class="tag">${roleName(u.role)}</span></div></div><p>${esc(u.bio||"No bio yet.")}</p><div class="stats"><div class="stat"><b>${u.level}</b>LEVEL</div><div class="stat"><b>${u.xp}</b>XP</div><div class="stat"><b>${u.followers.length}</b>FOLLOWERS</div><div class="stat"><b>${u.id===OWNER?"🔒":u.following.length}</b> FOLLOWING</div></div><button class="btn primary" data-action="editProfile">✏️ Edit profile</button></div><div class="card"><h3>⚡ XP Progress</h3><div class="progress"><i style="width:${percent}%"></i></div><p>${u.xp%100}/100 XP to next level · ${next-u.xp%100} XP left</p><h3>🏆 Achievements</h3>${(u.achievements||[]).map(a=>`<span class="tag">${esc(a)}</span> `).join("")||"<span class='muted'>No achievements.</span>"}</div></div><br>${following}<br><div class="card"><h3>📝 My Posts <span class="tag">${myPosts.length}</span></h3>${myPosts.length?myPosts.map(postHTML).join(""):`<div class="empty">Hali post yozilmagan.</div>`}</div>`);
+}
+function renderAccount(){
+ let accounts=Object.values(db.users).filter(u=>u.id!==OWNER||me().id===OWNER);
+ return shell("ACCOUNT","LOCAL DEMO ACCOUNT SWITCHER",`<div class="card"><div class="notice">🔒 OWNER akkaunti faqat OWNER sessiyasida ko‘rinadi va unga boshqa akkauntlardan kirib bo‘lmaydi.</div><button class="btn primary" data-action="newAccount">＋ CREATE TEST ACCOUNT</button></div><div class="grid cols3">${accounts.map(u=>`<div class="card"><div class="row"><div class="avatar">${avatar(u)}</div><div><b>${esc(u.name)}</b> ${u.id===OWNER?"👑":""}<br><small>${u.id}</small></div></div><p class="muted">${roleName(u.role)} · LVL ${u.level}</p><button class="btn ${u.id===me().id?"primary":""}" data-action="switchUser" data-id="${u.id}">${u.id===me().id?"CURRENT":"SWITCH"}</button></div>`).join("")}</div>`);
+}
+function renderSupport(){
+ return shell("SECURITY SUPPORT","SAFE ACCOUNT RECOVERY DEMO",`<div class="cols2 grid"><div class="card"><h2>🛡 Security Support</h2><p class="muted">Parol yoki recovery code so'ramaymiz. Muammo bo'lsa ticket yuboring.</p><select class="field" id="ticketType"><option>ACCOUNT HACKED</option><option>CAN'T LOGIN</option><option>RECOVERY PROBLEM</option><option>SUSPICIOUS ACTIVITY</option><option>OTHER</option></select><br><br><textarea class="field" id="ticketText" rows="5" placeholder="Muammoni yozing..."></textarea><br><br><button class="btn primary" data-action="ticket">CREATE TICKET</button></div><div class="card"><h2>My tickets</h2>${db.tickets.filter(t=>t.userId===me().id).map(t=>`<div class="notice"><b>${esc(t.type)}</b><br>${esc(t.text)}<br><span class="muted">${t.status}</span></div>`).join("")||`<div class="empty">No tickets.</div>`}</div></div>`);
+}
+function renderSettings(){
+ return shell("SETTINGS","MYFACE CONTROL",`<div class="card"><h3>System</h3><div class="row between"><span>Auto-follow OWNER for new accounts</span><button class="btn" data-action="toggleAuto">${db.settings.autoFollow?"ON":"OFF"}</button></div><br><div class="row between"><span>Maintenance mode</span><button class="btn" data-action="toggleMaintenance">${db.settings.maintenance?"ON":"OFF"}</button></div></div><div class="card"><h3>Data</h3><button class="btn danger" data-action="resetDemo">Reset local demo</button></div>`);
+}
+function renderAdmin(){
+ if(me().id!==OWNER)return "";
+ let us=Object.values(db.users),tickets=db.tickets.filter(x=>x.status==="open");
+ return shell("OWNER CENTER","GOD MODE // SYSTEM CONTROL",`<div class="adminGrid"><div class="kpi">USERS<strong>${us.length}</strong></div><div class="kpi">POSTS<strong>${db.posts.length}</strong></div><div class="kpi">GROUPS<strong>${Object.keys(db.groups).length}</strong></div><div class="kpi">INVITES<strong>${db.invitations.filter(x=>x.status==="pending").length}</strong></div><div class="kpi">TICKETS<strong>${tickets.length}</strong></div><div class="kpi">VOICE<strong>${Object.keys(db.voiceRooms).length}</strong></div></div><br>
+ <div class="card"><h2>⭐ XP / LEVEL CONTROL</h2><div class="notice">OWNER sifatida istalgan userga XP berish yoki aniq LVL o'rnatish mumkin.</div>${us.map(u=>`<div class="row between" style="padding:12px 0;border-bottom:1px solid var(--line)"><div><b>${esc(u.name)}</b> <span class="tag">ID ${u.id}</span><br><span class="muted">LVL ${u.level} · ${u.xp} XP · ${roleName(u.role)}</span></div><div class="row"><button class="btn gold" data-action="giveXP" data-id="${u.id}">+XP</button><button class="btn primary" data-action="setLevel" data-id="${u.id}">SET LVL</button></div></div>`).join("")}</div>
+ <div class="card"><h2>👑 USER MANAGEMENT</h2><table><tr><th>User</th><th>Role</th><th>Status</th><th>Actions</th></tr>${us.map(u=>`<tr><td>${esc(u.name)}<br><small>${u.id}</small></td><td>${u.id===OWNER?'<b>OWNER</b>':`<select class="field roleSelect" data-id="${u.id}">${[1,2,3,4,5,6].map(r=>`<option value="${r}" ${u.role===r?"selected":""}>${roleName(r)}</option>`).join("")}</select>`}</td><td>${u.banned?"BANNED":"ACTIVE"} ${u.verified?"✓":""}</td><td>${u.id===OWNER?"🔒 PROTECTED":`<button class="btn" data-action="verify" data-id="${u.id}">Verify</button> <button class="btn danger" data-action="ban" data-id="${u.id}">${u.banned?"Unban":"Ban"}</button> <button class="btn danger" data-action="deleteUser" data-id="${u.id}">Delete</button>`}</td></tr>`).join("")}</table></div>
+ <div class="card"><h2>🛡 SUPPORT TICKETS</h2>${db.tickets.map(t=>`<div class="notice"><b>${esc(t.type)}</b> · ${esc(user(t.userId)?.name||"Unknown")}<br>${esc(t.text)}<br><span class="muted">${t.status}</span> <button class="btn" data-action="closeTicket" data-id="${t.id}">Close</button></div>`).join("")||"<div class='empty'>No tickets.</div>"}</div>`);
+}
+function refresh(){save();render(currentPage)}
+function createPost(){
+ if(!canPost()||!rate("post",3000))return toast("Bir oz kuting.");
+ let text=document.getElementById("postText").value.trim();if(!text)return toast("Matn yozing.");
+ let p={id:id(),userId:me().id,text,images:[],likes:[],dislikes:[],comments:[],createdAt:now()};
+ db.posts.unshift(p);notify(me().id,"Post yaratildi.");refresh();
+}
+function like(pid){
+ let p=db.posts.find(x=>x.id===pid);if(!p)return;let i=p.likes.indexOf(me().id);
+ if(i>=0)p.likes.splice(i,1);else{p.likes.push(me().id);p.dislikes=p.dislikes.filter(x=>x!==me().id);let owner=user(p.userId);if(owner&&p.userId!==me().id){owner.xp+=1;owner.level=Math.floor(owner.xp/100)+1;notify(owner.id,`${me().name} sizning postingizga like bosdi (+1 XP)`)}}
+ refresh();
+}
+function dislike(pid){let p=db.posts.find(x=>x.id===pid);if(!p)return;let i=p.dislikes.indexOf(me().id);if(i>=0)p.dislikes.splice(i,1);else{p.dislikes.push(me().id);p.likes=p.likes.filter(x=>x!==me().id)}refresh()}
+function comment(pid){
+ openModal(`<h2>💬 Comment</h2><textarea class="field" id="commentText" rows="4"></textarea><br><br><button class="btn primary" data-action="saveComment" data-id="${pid}">SEND +3 XP</button> <button class="btn" data-action="close">Cancel</button>`)
+}
+function saveComment(pid){if(!canPost()||!rate("comment",1500))return toast("Bir oz kuting.");let p=db.posts.find(x=>x.id===pid),t=document.getElementById("commentText").value.trim();if(!p||!t)return;let c={id:id(),userId:me().id,text:t,createdAt:now(),replies:[]};p.comments.push(c);xp(3);if(p.userId!==me().id)notify(p.userId,`${me().name} postingizga comment yozdi (+3 XP)`);closeModal();refresh()}
+function follow(uid){
+ let u=user(uid);if(!u||u.id===me().id)return;let on=me().following.includes(uid);
+ if(on){me().following=me().following.filter(x=>x!==uid);u.followers=u.followers.filter(x=>x!==me().id)}
+ else{me().following.push(uid);if(!u.followers.includes(me().id))u.followers.push(me().id);if(rate("follow_"+uid,60000))xp(5);notify(uid,`${me().name} sizni follow qildi (+5 XP)`)}
+ refresh();
+}
+function createGroup(){
+ if(!canPost())return;openModal(`<h2>▣ New Group</h2><input class="field" id="groupName" placeholder="Group name"><br><br><button class="btn primary" data-action="saveGroup">CREATE</button> <button class="btn" data-action="close">Cancel</button>`)
+}
+function saveGroup(){let n=document.getElementById("groupName").value.trim();if(!n)return;let g={id:id(),name:n,creator:me().id,members:[me().id],messages:[],system:false,createdAt:now()};db.groups[g.id]=g;closeModal();selectedGroup=g.id;refresh();toast("Group yaratildi. Create Group = 0 XP.")}
+function sendGroup(gid){let g=db.groups[gid],inp=document.getElementById("groupMsg"),t=inp?.value.trim();if(!g||!t||!g.members.includes(me().id)||!canPost()||!rate("gm",500))return;if(!g.messages)g.messages=[];g.messages.push({id:id(),userId:me().id,text:t,createdAt:now()});xp(3);refresh()}
+function deleteGroup(gid){let g=db.groups[gid];if(!g||g.system||g.creator!==me().id&&me().id!==OWNER)return;delete db.groups[gid];selectedGroup=null;refresh()}
+function sendGroupInvite(){
+ let gid=document.getElementById("inviteGroup").value,uidv=document.getElementById("inviteUid").value.trim(),g=db.groups[gid],u=user(uidv);
+ if(!g||!u||g.members.includes(uidv))return toast("Group yoki user ID noto'g'ri.");
+ if(db.invitations.some(x=>x.groupId===gid&&x.to===uidv&&x.status==="pending"))return toast("Invite allaqachon bor.");
+ db.invitations.push({id:id(),groupId:gid,from:me().id,to:uidv,status:"pending",createdAt:now()});notify(uidv,`${me().name} sizni ${g.name} guruhiga taklif qildi`);toast("Invite yuborildi.")
+}
+function acceptInvite(iid){let x=db.invitations.find(x=>x.id===iid);if(!x||x.to!==me().id||x.status!=="pending")return;x.status="accepted";let g=db.groups[x.groupId];if(g&&!g.members.includes(me().id))g.members.push(me().id);save();navigate("groups")}
+function declineInvite(iid){let x=db.invitations.find(x=>x.id===iid);if(x&&x.to===me().id)x.status="declined";refresh()}
+function createStory(){let t=document.getElementById("storyText").value.trim();if(!t||!canPost())return;db.stories.unshift({id:id(),userId:me().id,text:t,image:"",createdAt:now(),expiresAt:now()+86400000});xp(5);refresh()}
+function newAccount(){openModal(`<h2>＋ Create Account</h2><input class="field" id="newName" placeholder="Name"><br><br><input class="field" id="newBio" placeholder="Bio"><br><br><button class="btn primary" data-action="saveAccount">CREATE</button> <button class="btn" data-action="close">Cancel</button>`)}
+function saveAccount(){let n=document.getElementById("newName").value.trim();if(!n)return;let uid=uid();db.users[uid]={id:uid,name:n,role:1,verified:false,banned:false,avatar:"",bio:document.getElementById("newBio").value.trim(),following:[],followers:[],xp:0,level:1,achievements:[],createdAt:now()};if(db.settings.autoFollow){db.users[uid].following.push(OWNER);db.users[OWNER].followers.push(uid)}db.currentUserId=uid;closeModal();refresh();toast("Account yaratildi.")}
+function editProfile(){let u=me();openModal(`<h2>Edit profile</h2><input class="field" id="editName" value="${esc(u.name)}"><br><br><textarea class="field" id="editBio">${esc(u.bio||"")}</textarea><br><br><button class="btn primary" data-action="saveProfile">SAVE</button>`)}
+function saveProfile(){me().name=document.getElementById("editName").value.trim()||me().name;me().bio=document.getElementById("editBio").value.trim();closeModal();refresh()}
+function ticket(){let t=document.getElementById("ticketText").value.trim();if(!t)return;db.tickets.unshift({id:id(),userId:me().id,type:document.getElementById("ticketType").value,text:t,status:"open",createdAt:now()});refresh();toast("Security ticket yuborildi.")}
+function giveXP(uidv){let u=user(uidv);openModal(`<h2>⭐ Give XP</h2><p><b>${esc(u.name)}</b> · current ${u.xp} XP</p><input class="field" type="number" id="xpAmount" value="100" min="1"><br><br><button class="btn primary" data-action="applyXP" data-id="${uidv}">ADD XP</button>`)}
+function applyXP(uidv){let n=parseInt(document.getElementById("xpAmount").value,10);if(!Number.isFinite(n)||n<1)return;let u=user(uidv);u.xp+=n;u.level=Math.floor(u.xp/100)+1;closeModal();refresh();toast(`+${n} XP berildi.`)}
+function setLevel(uidv){let u=user(uidv);openModal(`<h2>👑 Set Level</h2><p>${esc(u.name)} · current LVL ${u.level}</p><input class="field" type="number" id="levelValue" value="${u.level}" min="1"><br><br><button class="btn primary" data-action="applyLevel" data-id="${uidv}">SET LEVEL</button>`)}
+function applyLevel(uidv){let n=parseInt(document.getElementById("levelValue").value,10);if(!Number.isFinite(n)||n<1)return;let u=user(uidv);u.level=n;u.xp=(n-1)*100;closeModal();refresh();toast(`LVL ${n} o'rnatildi.`)}
+function toggleAuto(){db.settings.autoFollow=!db.settings.autoFollow;refresh()}
+function toggleMaintenance(){if(me().id!==OWNER)return;db.settings.maintenance=!db.settings.maintenance;refresh()}
+function adminRole(uidv,val){if(me().id!==OWNER||uidv===OWNER)return;user(uidv).role=Number(val);refresh()}
+function verify(uidv){if(me().id===OWNER)user(uidv).verified=!user(uidv).verified;refresh()}
+function ban(uidv){if(me().id!==OWNER||uidv===OWNER)return;user(uidv).banned=!user(uidv).banned;refresh()}
+function deleteUser(uidv){if(me().id!==OWNER||uidv===OWNER)return;delete db.users[uidv];db.posts=db.posts.filter(p=>p.userId!==uidv);Object.values(db.groups).forEach(g=>{g.members=g.members.filter(x=>x!==uidv);g.messages=(g.messages||[]).filter(x=>x.userId!==uidv);if(g.creator===uidv)g.creator=OWNER});db.invitations=db.invitations.filter(x=>x.from!==uidv&&x.to!==uidv);refresh()}
+function resetDemo(){if(!confirm("Barcha local demo ma'lumotlarini o'chirish?"))return;localStorage.removeItem(KEY);location.reload()}
+function openProfile(uidv){
+ let u=user(uidv);if(!u)return;
+ let followingBlock=u.id===OWNER
+   ? `<div class="notice">🔒 OWNER Following ro'yxati maxfiy.</div>`
+   : `<div class="card" style="margin-top:14px"><h3>👥 Following</h3>${u.following?.length?u.following.map(fid=>{let f=user(fid);return f?`<div class="row between" style="padding:9px 0;border-bottom:1px solid var(--line)"><div class="row"><div class="avatar">${avatar(f)}</div><div><b>${esc(f.name)}</b><br><small class="muted">${roleName(f.role)} · ${f.id}</small></div></div><button class="btn" data-action="viewProfile" data-id="${f.id}">Open</button></div>`:""}).join(""):`<div class="empty">Hech kimga follow bosmagan.</div>`}</div>`;
+ openModal(`<div class="row"><div class="avatar" style="width:70px;height:70px">${avatar(u)}</div><div><h2>${esc(u.name)}</h2><span class="tag">ID ${u.id}</span> <span class="tag">LVL ${u.level}</span></div></div><p>${esc(u.bio||"No bio")}</p><div class="stats"><div class="stat"><b>${u.xp}</b>XP</div><div class="stat"><b>${u.followers.length}</b>Followers</div><div class="stat"><b>${u.following.length}</b>Following</div><div class="stat"><b>${roleName(u.role)}</b>Role</div></div>${followingBlock}<br><button class="btn primary" data-action="follow" data-id="${u.id}">${me().following.includes(u.id)?"Unfollow":"Follow"}</button>`)}
+let voiceStream=null;
+function voiceStart(gid){let g=db.groups[gid];if(!g)return;let rid="voice_"+gid;if(!db.voiceRooms[rid])db.voiceRooms[rid]={id:rid,groupId:gid,host:me().id,participants:[],active:true,createdAt:now()};let room=db.voiceRooms[rid];if(!room.participants.includes(me().id))room.participants.push(me().id);save();let names=room.participants.map(x=>user(x)).filter(Boolean);openModal(`<div class="row between"><div><h2 style="margin:0">🎙 Voice Chat</h2><p class="muted" style="margin:5px 0">${esc(g.name)} · ${names.length} participant${names.length===1?"":"s"}</p></div><span class="tag">LIVE</span></div><div class="card" style="margin-top:15px;background:#04101a"><h3>👥 In voice</h3><div class="grid cols3">${names.map(u=>`<div class="card" style="text-align:center"><div class="avatar" style="margin:auto">${avatar(u)}</div><b>${esc(u.name)}</b><br><small class="muted">${u.id===me().id?"You · ":""}${roleName(u.role)}</small><div style="font-size:22px;margin-top:8px">${u.id===me().id?"🎤":"🔊"}</div></div>`).join("")}</div></div><div class="row" style="margin-top:15px"><button class="btn primary" data-action="mic">🎤 Join / Mic</button><button class="btn danger" data-action="leaveVoice" data-id="${gid}">Leave voice</button></div>`)}
+async function mic(){try{if(voiceStream){voiceStream.getTracks().forEach(t=>t.stop());voiceStream=null;toast("🎤 Microphone muted.");return}voiceStream=await navigator.mediaDevices.getUserMedia({audio:true});toast("🎤 You are in the voice chat.");}catch(e){toast("Microphone permission berilmadi.")}}
+function leaveVoice(gid){let rid="voice_"+gid,room=db.voiceRooms[rid];if(room){room.participants=(room.participants||[]).filter(x=>x!==me().id);if(!room.participants.length)delete db.voiceRooms[rid];save()}if(voiceStream){voiceStream.getTracks().forEach(t=>t.stop());voiceStream=null}closeModal();refresh();toast("Voice chatdan chiqdingiz.")} 
+function switchUser(uidv){if(!user(uidv))return;if(uidv===OWNER&&me().id!==OWNER){toast("🔒 OWNER akkauntiga faqat OWNER kira oladi.");return}db.currentUserId=uidv;save();navigate("home")}
+function action(a,idv){
+ const f={toggleSide:()=>document.getElementById("side").classList.toggle("open"),close:closeModal,createPost,like:()=>like(idv),dislike:()=>dislike(idv),comment:()=>comment(idv),saveComment:()=>saveComment(idv),deletePost:()=>{db.posts=db.posts.filter(x=>x.id!==idv);refresh()},follow:()=>follow(idv),viewProfile:()=>openProfile(idv),newGroup:createGroup,saveGroup,selectGroup:()=>{selectedGroup=idv;render("groups")},sendGroup:()=>sendGroup(idv),deleteGroup:()=>deleteGroup(idv),acceptInvite:()=>acceptInvite(idv),declineInvite:()=>declineInvite(idv),createStory,doSearch:()=>doSearch(document.getElementById("searchBox")?.value),newAccount,saveAccount,editProfile,saveProfile,ticket,toggleAuto,toggleMaintenance,resetDemo,giveXP:()=>giveXP(idv),applyXP:()=>applyXP(idv),setLevel:()=>setLevel(idv),applyLevel:()=>applyLevel(idv),verify:()=>verify(idv),ban:()=>ban(idv),deleteUser:()=>deleteUser(idv),voiceStart:()=>voiceStart(idv),mic,leaveVoice:()=>leaveVoice(idv),switchUser:()=>switchUser(idv),openGroup:()=>{selectedGroup=idv;navigate("groups")}};
+ if(f[a])f[a]();
+}
+document.addEventListener("click",e=>{let n=e.target.closest("[data-nav]");if(n){e.preventDefault();navigate(n.dataset.nav);return}let b=e.target.closest("[data-action]");if(b){e.preventDefault();action(b.dataset.action,b.dataset.id)}})
+document.addEventListener("change",e=>{if(e.target.classList.contains("roleSelect"))adminRole(e.target.dataset.id,e.target.value)})
+document.getElementById("globalSearch").addEventListener("keydown",e=>{if(e.key==="Enter"){navigate("search");setTimeout(()=>{let q=e.target.value;document.getElementById("searchBox").value=q;doSearch(q)},20)}})
+document.getElementById("modalBg").addEventListener("click",e=>{if(e.target.id==="modalBg")closeModal()})
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeModal()})
+navigate("home");
+</script>
+</body>
+</html>
